@@ -80,8 +80,8 @@
 
 ### 📊 GitHub Stats  
 <p align="center">
-  <img width="48%" src="https://github-readme-stats.vercel.app/api?username=vishnu&show_icons=true&theme=tokyonight" />
-  <img width="48%" src="https://github-readme-streak-stats.herokuapp.com/?user=vishnu&theme=tokyonight" />
+  <img width="48%" src="https://github-readme-stats.vercel.app/api?username=Vishnu252005&show_icons=true&theme=tokyonight" />
+  <img width="48%" src="https://github-readme-streak-stats.herokuapp.com/?user==Vishnu252005&theme=tokyonight" />
 </p>
 
 ---
