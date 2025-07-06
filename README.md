@@ -6,7 +6,7 @@
 ---
 
 ### 🚀 About Me  
-Hi, I'm **Vishnu** – a passionate **Full-Stack Developer**, **Flutter App Developer**, and the proud **Founder of [Vihaya](https://play.google.com/store/apps/details?id=com.vihaya.nexianotes)**, an all-in-one engineering app that simplifies student life through **notes, AI assistance, projects, courses, and events**.
+Hi, I'm **Vishnu** – a passionate **Full-Stack Developer**, **Flutter App Developer**, and the proud **Founder of [Vihaya](https://play.google.com/store/apps/details?id=com.vihaya.nexia)**, an all-in-one engineering app that simplifies student life through **notes, AI assistance, projects, courses, and events**.
 
 - 💼 Founder of the **Vihaya Android App** – [Available on Play Store](https://play.google.com/store/apps/details?id=com.vihaya.nexianotes)  
 - 💻 Skilled in **Flutter, Dart, Django, Node.js, Java, and React**  
