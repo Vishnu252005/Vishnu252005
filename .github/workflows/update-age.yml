@@ -1,0 +1,73 @@
+name: Auto-update age in README
+
+# Runs daily at 00:00 UTC (~05:30 AM IST) — only commits when the age actually
+# changes (once a year, on your birthday). Also runnable manually from the
+# "Actions" tab via workflow_dispatch.
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-age:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Compute age and patch README
+        env:
+          # Set this as a GitHub Actions **secret** named BIRTH_DATE
+          # (Repo → Settings → Secrets and variables → Actions → New secret)
+          # Format: YYYY-MM-DD   (e.g. 2005-01-25)
+          BIRTH_DATE: ${{ secrets.BIRTH_DATE }}
+        run: |
+          if [ -z "$BIRTH_DATE" ]; then
+            echo "::error::BIRTH_DATE secret not set. Add it in repo Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+
+          AGE=$(python3 - <<EOF
+          import os
+          from datetime import date
+          y, m, d = map(int, os.environ["BIRTH_DATE"].split("-"))
+          dob = date(y, m, d)
+          today = date.today()
+          age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+          print(age)
+          EOF
+          )
+
+          echo "Computed age: $AGE"
+          python3 - <<EOF
+          import re, pathlib
+          age = "$AGE"
+          p = pathlib.Path("README.md")
+          text = p.read_text()
+          new_text = re.sub(
+              r"<!-- AGE -->\d+<!-- /AGE -->",
+              f"<!-- AGE -->{age}<!-- /AGE -->",
+              text,
+          )
+          if new_text != text:
+              p.write_text(new_text)
+              print("README updated")
+          else:
+              print("README already up to date")
+          EOF
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --staged --quiet; then
+            echo "No changes — skipping commit."
+          else
+            git commit -m "chore: auto-update age in README"
+            git push
+          fi
